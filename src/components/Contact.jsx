@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { FaPhoneAlt, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import Container from "./Container";
@@ -33,11 +34,21 @@ const Contact = () => {
       style={{ paddingTop: "6rem", paddingBottom: "6rem" }}
     >
       {/* Background Glow */}
-      <div className="absolute -right-32 top-1/4 h-80 w-80 rounded-full bg-[#D4AF37]/10 blur-[130px]" />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="absolute -right-32 top-1/4 h-80 w-80 rounded-full bg-[#D4AF37]/10 blur-[130px]"
+      />
 
       <Container className="relative z-10">
         {/* Section Heading */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
           className="flex w-full flex-col items-center justify-center text-center"
           style={{ marginBottom: "3.5rem" }}
         >
@@ -69,23 +80,28 @@ const Contact = () => {
             Your special moments deserve to be remembered forever. Get in touch
             with us and let's make them unforgettable.
           </p>
-        </div>
+        </motion.div>
 
         {/* Contact Cards Grid */}
         <div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
           style={{ gap: "1.5rem" }}
         >
-          {contactItems.map((item) => {
+          {contactItems.map((item, index) => {
             const Icon = item.icon;
 
             return (
-              <a
+              <motion.a
                 key={item.title}
                 href={item.href}
                 target={item.title === "Visit Us" ? "_blank" : undefined}
                 rel={item.title === "Visit Us" ? "noreferrer" : undefined}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0D0D0D] transition-all duration-300 hover:-translate-y-2 hover:border-(--gold)/60 hover:shadow-xl hover:shadow-(--gold)/10"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: index * 0.12 }}
+                whileHover={{ y: -8 }}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0D0D0D] transition-all duration-300 hover:border-(--gold)/60 hover:shadow-xl hover:shadow-(--gold)/10"
                 style={{ padding: "1.75rem" }}
               >
                 {/* Card Subtle Glow */}
@@ -128,13 +144,17 @@ const Contact = () => {
                     </p>
                   )}
                 </div>
-              </a>
+              </motion.a>
             );
           })}
         </div>
 
         {/* Bottom Call To Action Banner */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col items-center justify-between gap-6 rounded-2xl border border-(--gold)/30 bg-[#0D0D0D] sm:flex-row"
           style={{ marginTop: "2.5rem", padding: "2rem" }}
         >
@@ -155,7 +175,7 @@ const Contact = () => {
             <FaPhoneAlt size={14} />
             <span>Contact Us</span>
           </Button>
-        </div>
+        </motion.div>
       </Container>
     </section>
   );

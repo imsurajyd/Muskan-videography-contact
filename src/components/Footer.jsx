@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   FaInstagram,
   FaFacebookF,
@@ -22,11 +23,21 @@ const Footer = () => {
       style={{ paddingTop: "4rem" }}
     >
       {/* Background Glow */}
-      <div className="absolute -bottom-36 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-(--gold)/10 blur-[130px]" />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="absolute -bottom-36 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-(--gold)/10 blur-[130px]"
+      />
 
       <Container className="relative z-10">
         {/* Main Footer Grid */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
           className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3"
           style={{ paddingBottom: "3.5rem" }}
         >
@@ -132,10 +143,7 @@ const Footer = () => {
                 href="tel:+918298422602"
                 className="flex items-start gap-3 text-sm text-gray-400 transition-colors hover:text-(--gold)"
               >
-                <FaPhoneAlt
-                  size={15}
-                  className="mt-1 shrink-0 text-(--gold)"
-                />
+                <FaPhoneAlt size={15} className="mt-1 shrink-0 text-(--gold)" />
 
                 <span className="leading-relaxed">
                   +91 8298422602
@@ -159,10 +167,14 @@ const Footer = () => {
               </a>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Bottom Bar */}
-        <div
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-col gap-4 border-t border-white/10 sm:flex-row sm:items-center sm:justify-between"
           style={{ paddingTop: "1.5rem", paddingBottom: "1.5rem" }}
         >
@@ -182,7 +194,7 @@ const Footer = () => {
               className="transition-transform duration-300 group-hover:-translate-y-1 text-(--gold)"
             />
           </button>
-        </div>
+        </motion.div>
       </Container>
     </footer>
   );

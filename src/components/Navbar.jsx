@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import Container from "./Container";
 import Button from "./Button";
@@ -29,7 +30,10 @@ const Navbar = () => {
   };
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed left-0 top-0 z-50 w-full transition-all duration-300 ${
         scrolled || menuOpen
           ? "border-b border-(--gold)/20 bg-black/95 backdrop-blur-xl shadow-2xl shadow-black/80"
@@ -81,35 +85,51 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Dropdown Menu */}
-      {menuOpen && (
-        <div className="border-t border-(--gold)/15 bg-black/95 backdrop-blur-2xl md:hidden">
-          <Container className="flex flex-col gap-2 py-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={handleLinkClick}
-                className="block w-full border-b border-white/10 px-3 py-4 text-base font-medium tracking-wide text-white/90 transition-colors hover:text-(--gold) hover:bg-white/5 rounded-lg"
-              >
-                {link.name}
-              </a>
-            ))}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden border-t border-(--gold)/15 bg-black/95 backdrop-blur-2xl md:hidden"
+          >
+            <Container className="flex flex-col gap-2 py-6">
+              {navLinks.map((link, index) => (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  onClick={handleLinkClick}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.08, duration: 0.2 }}
+                  className="block w-full border-b border-white/10 px-3 py-4 text-base font-medium tracking-wide text-white/90 transition-colors hover:text-(--gold) hover:bg-white/5 rounded-lg"
+                >
+                  {link.name}
+                </motion.a>
+              ))}
 
-            <div className="pt-4">
-              <Button
-                href="tel:+918298422602"
-                variant="primary"
-                onClick={handleLinkClick}
-                className="w-full"
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navLinks.length * 0.08, duration: 0.2 }}
+                className="pt-4"
               >
-                <Phone size={16} />
-                <span>Call Now</span>
-              </Button>
-            </div>
-          </Container>
-        </div>
-      )}
-    </header>
+                <Button
+                  href="tel:+918298422602"
+                  variant="primary"
+                  onClick={handleLinkClick}
+                  className="w-full"
+                >
+                  <Phone size={16} />
+                  <span>Call Now</span>
+                </Button>
+              </motion.div>
+            </Container>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 

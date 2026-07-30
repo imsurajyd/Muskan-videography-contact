@@ -1,5 +1,13 @@
+import { motion } from "framer-motion";
+
 export const LogoAperture = () => (
-  <a href="#home" className="group flex items-center gap-3">
+  <motion.a
+    href="#home"
+    className="group flex items-center gap-3"
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5, ease: "easeOut" }}
+  >
     {/* Camera Aperture SVG */}
     <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-(--gold)/30 bg-black/50 transition-transform duration-300 group-hover:scale-103 group-hover:border-(--gold)">
       <svg
@@ -30,5 +38,5 @@ export const LogoAperture = () => (
         VIDEOGRAPHY
       </p>
     </div>
-  </a>
+  </motion.a>
 );

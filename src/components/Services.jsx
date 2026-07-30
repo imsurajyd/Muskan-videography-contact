@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   FaCamera,
   FaHeart,
@@ -53,7 +54,11 @@ const Services = () => {
 
       <Container className="relative z-10">
         {/* Section Heading */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
           className="flex w-full flex-col items-center justify-center text-center"
           style={{ marginBottom: "3.5rem" }}
         >
@@ -77,7 +82,7 @@ const Services = () => {
             From intimate moments to grand celebrations, we capture every detail
             with creativity and precision.
           </p>
-        </div>
+        </motion.div>
 
         {/* Services Grid with Explicit Top Margin for Guaranteed Spacing */}
         <div
@@ -88,9 +93,14 @@ const Services = () => {
             const Icon = service.icon;
 
             return (
-              <div
+              <motion.div
                 key={service.title}
-                className="group relative flex flex-col justify-between rounded-2xl border border-white/10 bg-(--card) transition-all duration-300 hover:-translate-y-2 hover:border-(--gold)/60 hover:shadow-xl hover:shadow-(--gold)/10"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -8 }}
+                className="group relative flex flex-col justify-between rounded-2xl border border-white/10 bg-(--card) transition-all duration-300 hover:border-(--gold)/60 hover:shadow-xl hover:shadow-(--gold)/10"
                 style={{ padding: "2rem" }} /* Guaranteed Card Padding */
               >
                 <div>
@@ -125,7 +135,7 @@ const Services = () => {
 
                 {/* Bottom Border Accent */}
                 <div className="h-0.5 w-12 bg-(--gold)/30 transition-all duration-500 group-hover:w-full group-hover:bg-(--gold)" />
-              </div>
+              </motion.div>
             );
           })}
         </div>
